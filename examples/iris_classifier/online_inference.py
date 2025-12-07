@@ -8,7 +8,10 @@ import sys
 def mlflow_endpoints():
     """
     Showcase MLflow model serving endpoints.
-
+    
+    Command to run the local inference server:
+    `poetry run mlflow models serve -m models:/Iris_Classifier_Model@production --env-manager local`
+    In other words, you don't need to use fastapi uvicorn command directly, as mlflow handles that for you.
     The inference server provides 4 endpoints:
 
     /invocations: An inference endpoint that accepts POST requests with input data and returns predictions.
@@ -23,6 +26,7 @@ def mlflow_endpoints():
     base_url = "http://127.0.0.1:5000"
 
     endpoints = {
+        #default endpoints provided by mlflow model serving
         "invocations": f"{base_url}/invocations", # post request
         "ping": f"{base_url}/ping", # get request
         "health": f"{base_url}/health", # get request

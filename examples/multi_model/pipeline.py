@@ -20,6 +20,7 @@ class MultiClassifier(mlflow.pyfunc.PythonModel):
         for algo in self.models.keys():
             model = self._get_model(algo)
             model.fit(x, y)
+            # I save fitted model in the dict
             self.models[algo] = model
 
     def _get_model(self, algo: str):

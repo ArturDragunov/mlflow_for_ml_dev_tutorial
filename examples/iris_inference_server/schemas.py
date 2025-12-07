@@ -4,7 +4,7 @@ from pydantic import ConfigDict
 from pydantic import field_validator
 from typing import List
 
-
+# data validation steps using pydantic
 class IrisRequest(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
     sepal_length: float = Field(alias="sepal length (cm)")
@@ -36,8 +36,20 @@ class IrisRequest(BaseModel):
 
 
 class IrisResponse(BaseModel):
+    """Schema for the iris prediction response."""
     species: int = Field(description="Predicted species of the iris flower")
     confidence: float = Field(description="Confidence score of the prediction")
+
+    # mapping integer to species name
+    # The validator runs automatically during model creation, 
+    # ensuring the data is always validated and transformed correctly in one place.
+    # You don’t have to write the mapping logic in the router
+    # You don’t risk forgetting validation in other routes
+    # You don’t duplicate mapping code everywhere
+    
+    # Without the validator
+    # You have to remember to call map_int_to_species()
+    # in every place you create IrisResponse.
 
     @field_validator("species")
     @classmethod

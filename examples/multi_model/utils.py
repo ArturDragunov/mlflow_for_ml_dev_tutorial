@@ -56,7 +56,7 @@ def get_model_signature(
 
 def set_alias(model_name: str):
     """
-    Set the alias for the model
+    Set the alias for the model. Normally, we set these aliases based on evaluation metrics.
     """
     # search versions
     client = mlflow.MlflowClient()

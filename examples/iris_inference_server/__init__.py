@@ -11,6 +11,7 @@ async def load_ml_model(app: FastAPI):
     """
     Context manager to load the ML model.
     This is a placeholder for actual model loading logic.
+    We load the model before serving the endpoint.
     """
     try:
         # Load your ML model here
@@ -21,7 +22,7 @@ async def load_ml_model(app: FastAPI):
     finally:
         print("Model loaded successfully.")
 
-
+#fastapi executes load_ml_model on startup
 app = FastAPI(title="Inference Server", lifespan=load_ml_model)
 
 app.include_router(inference, prefix=f"/{API_VERSION}", tags=["inference"])

@@ -37,3 +37,5 @@ def invocations(iris_request: IrisRequest) -> IrisResponse:
         return IrisResponse(species=prediction[0], confidence=proba[0].max())
     else:
         return JSONResponse(content={"error": "Model not found."}, status_code=404)
+
+# to run fastapi, use: uv run fastapi dev iris_inference_server

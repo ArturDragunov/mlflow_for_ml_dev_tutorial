@@ -20,13 +20,14 @@ def train_multi_model():
 
     x_train, x_test, y_train, y_test = get_train_test_data()
 
-    multi_classifier = MultiClassifier()
+    multi_classifier = MultiClassifier() # pyfunc.PythonModel is parent class
+    # train multiple models inside
     multi_classifier.train_estimators(x_train, y_train)
 
     # set tracking uri
     mlflow.set_tracking_uri(get_project_root() / "mlruns")
 
-    # set experiment
+    # set new experiment or retrieve existing one
     experiment_name = "multi_model"
     experiment = get_or_create_experiment(
         name=experiment_name,
@@ -76,7 +77,8 @@ def inference_multimodel():
     Inference the multi model.
     """
     try:
-        algo = sys.argv[1]
+        # taking first argument from command line
+        algo = sys.argv[1] 
     except IndexError:
         # default value
         algo = "random_forest"
